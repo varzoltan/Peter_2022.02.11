@@ -9,6 +9,10 @@ namespace Peter_2022._02._11
 {
     internal class Program
     {
+        struct Adat
+        {
+            public string Soduku;
+        }
         static string hetnapja(int honap, int nap)
         {
             string[] napnev = { "vasarnap", "hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat" };
@@ -29,10 +33,10 @@ namespace Peter_2022._02._11
 
         static void Main(string[] args)
         {
-            Console.WriteLine(osszead(40,50));
+            Console.WriteLine(osszead(40,  50));
             int honap = 4;
             int nap = 4;
-            Console.WriteLine(hetnapja(honap,nap));
+            Console.WriteLine(hetnapja(honap,  nap));
             //Tömbök
             //Egydimenziós tömbök: vektor
             //1-Ismerem az elemeit
@@ -51,7 +55,7 @@ namespace Peter_2022._02._11
             Console.WriteLine();
 
             int[] tomb2 = new int[10];
-            foreach(var i in tomb2)
+            foreach  (var i in tomb2)
             {
                 Console.Write(i + " ");
             }
@@ -60,8 +64,8 @@ namespace Peter_2022._02._11
             //Tömb feltöltése
             Random veletlen = new Random();
 
-            int[,] tomb3 = new int[5,6];
-            for(int i = 0;i < tomb3.GetLength(0); i++)
+            int[,] tomb3 = new int[5,  6];
+            for  (int i = 0;  i < tomb3.GetLength(0); i++)
             {
                 for (int j = 0; j < tomb3.GetLength(1); j++)
                 {
@@ -70,19 +74,44 @@ namespace Peter_2022._02._11
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine(tomb3[2,4]);
-
+            Console.WriteLine(tomb3[2,  4]);
+            vonalhuz();
             //szorzótábla
             //int[,] tomb4 = new int[10,10];
-            for (int i = 1;i<11;i++)
+            Console.WriteLine();
+            for (int i = 1;  i < 11;  i++)
             {
-                for (int j = 1;j<11;j++)
+                for (int j = 1;  j < 11;  j++)
                 {
-                    Console.Write((i*j).ToString("##0"));
+                    Console.Write("{0,4}",  i * j);
                 }
                 Console.WriteLine();
             }
+            vonalhuz();
+            Console.Write("\nLégyszi add meg a születési időt: (1968.04.04)");
+            string[] db = Console.ReadLine().Split('.');
+            Console.WriteLine($"Ezen a napon születtél: {hetnapja(int.Parse(db[0]), int.Parse(db[1]), int.Parse(db[2]))}");
+            vonalhuz();
             Console.ReadKey();
         }
+        static string hetnapja(int ev, int ho, int nap)
+        {
+            string[] napok = { "v", "h", "k", "sze", "cs", "p", "szo" };
+            int[] honapok = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4, };
+            if (ho < 3)
+            {
+                ev = ev - 1;
+            }
+            return napok[ (ev + ev / 4 - ev / 100 + ev / 400 + honapok[ho - 1] + nap) % 7];
+        }
+
+        //Eljárás
+        static void vonalhuz()
+        {
+            for (int i = 1;i<50;i++)
+            {
+                Console.Write('-');
+            }
+        } 
     }
 }
